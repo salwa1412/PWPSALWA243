@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 from models import db, User
-import RegistrationForm, LoginForm, EditUserForm, AddUserForm, DeleteUserForm
+import RegistrationForm, LoginForm, EditUserForm, AddUserForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -61,7 +61,6 @@ def edit_user(user_id):
         flash('User  updated successfully!', category='success')
         return redirect(url_for('dashboard'))
     return render_template('edit_user.html', form=form)
-
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
     form = AddUserForm()
