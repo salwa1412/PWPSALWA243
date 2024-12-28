@@ -1,0 +1,65 @@
+/* static/styles.css */
+
+/* Gaya untuk tombol */
+.btn {
+    @apply px-4 py-2 rounded transition duration-200;
+}
+
+.btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.btn-secondary {
+    @apply bg-yellow-500 text-white hover:bg-yellow-600;
+}
+
+.btn-danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+/* Gaya untuk tabel */
+.table {
+    @apply min-w-full border-collapse border border-gray-200 mt-4;
+}
+
+.table th, .table td {
+    @apply border border-gray-200 px-4 py-2;
+}
+
+.table th {
+    @apply bg-gray-100;
+}
+
+/* Gaya untuk form */
+.form-input {
+    @apply border border-gray-300 rounded p-2 w-full;
+}
+
+.form-label {
+    @apply block mb-2 font-bold;
+}
+
+/* Gaya untuk tombol */
+.btn {
+    @apply w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200;
+}
+
+/* Gaya untuk pesan kesalahan */
+.error {
+    @apply bg-red-500 text-white p-2 rounded mb-4;
+}
+
+/* Gaya untuk pesan sukses */
+.success {
+    @apply bg-green-500 text-white p-2 rounded mb-4;
+}
+
+/* Gaya untuk pesan peringatan */
+.warning {
+    @apply bg-yellow-500 text-white p-2 rounded mb-4;
+}
+
+/* Gaya untuk card */
+.card {
+    @apply bg-white shadow-lg rounded-lg p-8 w-full max-w-md;
+}

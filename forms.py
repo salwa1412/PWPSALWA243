@@ -14,3 +14,9 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class EditUserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    role = SelectField('Role', choices=[('user', 'User '), ('admin', 'Admin')], validators=[DataRequired()])
+    submit = SubmitField('Update User')

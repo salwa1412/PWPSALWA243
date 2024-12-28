@@ -1,0 +1,42 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>PROJEK PWP PRAKTIK</title>
+</head>
+<body>
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-lg font-bold">
+                <a>PROJEK PWP</a>
+            </div>
+            <div class="space-x-4">
+                <a class="text-white hover:text-gray-300 transition duration-200">Home</a>
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 transition duration-200">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="text-white hover:text-gray-300 transition duration-200">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="text-white hover:text-gray-300 transition duration-200">Login</a>
+                    <a href="{{ url_for('register') }}" class="text-white hover:text-gray-300 transition duration-200">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li class="bg-green-500 text-white p-2 rounded">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
