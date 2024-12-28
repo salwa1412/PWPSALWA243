@@ -1,7 +1,6 @@
-# app.py
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 from models import db, User
-from forms import RegistrationForm, LoginForm, EditUserForm
+import RegistrationForm, LoginForm, EditUserForm, AddUserForm, DeleteUserForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -32,9 +31,8 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    user = None  # Inisialisasi variabel user di sini
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()  # Mencari pengguna berdasarkan email
+        user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             session['user_id'] = user.id
             flash('Login Berhasil!', category='success')
@@ -42,7 +40,6 @@ def login():
         else:
             flash('Login Gagal! Pastikan email dan password benar.', category='error')
     return render_template('login.html', form=form)
-
 
 @app.route('/dashboard')
 def dashboard():
@@ -61,19 +58,19 @@ def edit_user(user_id):
         user.email = form.email.data
         user.role = form.role.data
         db.session.commit()
-        flash('User berhasil diupdate!', category='success')
+        flash('User  updated successfully!', category='success')
         return redirect(url_for('dashboard'))
-    return render_template('edit_user.html', form=form, user=user)
+    return render_template('edit_user.html', form=form)
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    form = RegistrationForm()
+    form = AddUserForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('User sudah berhasil ditambahkan!', category='success')
+        flash('User  sudah berhasil ditambahkan!', category='success')
         return redirect(url_for('dashboard'))
     return render_template('add_user.html', form=form)
 
@@ -82,7 +79,7 @@ def delete_user(user_id):
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
-    flash('User berhasil dihapus!', category='success')
+    flash('User  berhasil dihapus!', category='success')
     return redirect(url_for('dashboard'))
 
 @app.route('/logout')
@@ -92,4 +89,4 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
