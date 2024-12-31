@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 from models import db, User
-import RegistrationForm, LoginForm, EditUserForm, AddUserForm
+from forms import Registration, Login, EditUser, AddUser
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -18,7 +18,7 @@ def home():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
+    form = Registration()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
@@ -30,7 +30,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = Login()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
@@ -52,7 +52,7 @@ def dashboard():
 @app.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
-    form = EditUserForm(obj=user)
+    form = EditUser(obj=user)
     if form.validate_on_submit():
         user.username = form.username.data
         user.email = form.email.data
@@ -63,7 +63,7 @@ def edit_user(user_id):
     return render_template('edit_user.html', form=form)
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    form = AddUserForm()
+    form = AddUser()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
