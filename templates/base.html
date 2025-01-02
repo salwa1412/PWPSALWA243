@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>PROJEK PWP PRAKTIK</title>
 </head>
-<body>
+<body class="bg-gray-100">
     <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-white text-lg font-bold">
-                <a>PROJEK PWP</a>
+                <a href="{{ url_for('home') }}">PROJEK PWP</a>
             </div>
             <div class="space-x-4">
-                <a class="text-white hover:text-gray-300 transition duration-200">Home</a>
+                <a href="{{ url_for('home') }}" class="text-white hover:text-gray-300 transition duration-200">Home</a>
                 {% if 'user_id' in session %}
                     <a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 transition duration-200">Dashboard</a>
                     <a href="{{ url_for('logout') }}" class="text-white hover:text-gray-300 transition duration-200">Logout</a>
@@ -26,16 +26,23 @@
             </div>
         </div>
     </nav>
+    
     <div class="container mx-auto mt-5">
-            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <ul class="flashes">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-                </ul>
+                <div class="mb-4">
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="bg-{{ category }}-100 border-l-4 border-{{ category }}-500 text-{{ category }}-700 p-4 mb-2 rounded">
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
         {% endwith %}
+        
+        <!-- Menghapus kotak putih -->
         {% block content %}{% endblock %}
     </div>
 </body>
