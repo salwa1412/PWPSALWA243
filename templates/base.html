@@ -18,10 +18,10 @@
                 <a href="{{ url_for('home') }}" class="text-white hover:text-gray-300 transition duration-200">Home</a>
                 {% if 'user_id' in session %}
                     <a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 transition duration-200">Dashboard</a>
-                    <a href="{{ url_for('logout') }}" class="text-white hover:text-gray-300 transition duration-200">Logout</a>
+                    <a href="{{ url_for('logout') }}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-200">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="text-white hover:text-gray-300 transition duration-200">Login</a>
-                    <a href="{{ url_for('register') }}" class="text-white hover:text-gray-300 transition duration-200">Register</a>
+                    <a href="{{ url_for('login') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">Login</a>
+                    <a href="{{ url_for('register') }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Register</a>
                 {% endif %}
             </div>
         </div>

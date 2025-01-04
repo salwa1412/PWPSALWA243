@@ -20,6 +20,12 @@ def home():
 def register():
     form = Registration()
     if form.validate_on_submit():
+        # Cek apakah username atau email sudah ada
+        existing_user = User.query.filter((User .username == form.username.data) | (User .email == form.email.data)).first()
+        if existing_user:
+            flash('Username atau email sudah terdaftar. Silakan gunakan yang lain.', category='error')
+            return redirect(url_for('register'))
+
         user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
         db.session.add(user)
